@@ -4,7 +4,6 @@
 #include <string>
 #include <time.h>
 
-
 //Simple trace function to test things out.
 void trace(std::string message)
 {
@@ -113,7 +112,7 @@ int Player::Throw()
 {
 	unsigned int chance = 0, aiming_position = 0, left_position = 0, right_position = 0;
 
-	chance = rand()%100+1; // Number magic follows, look away so you don't go blind!
+	//chance = rand()%100+1; // Number magic follows, look away so you don't go blind!
 
 	if (aiming == 50)
 	{
@@ -237,6 +236,7 @@ int main()
 	//Adding the 10000 games loop
 	for (int game_loops = 0; game_loops < 10000; game_loops++)
 	{
+		int chance = rand()%100+1; // Number magic follows, look away so you don't go blind!
 		joe.score = 301;
 		sid.score = 301;
 		joe.throw_count = 0;
@@ -246,34 +246,34 @@ int main()
 			if ((sid.score != 0) && (player_switch == 0))
 			{
 				//Sleep(550);
-				std::cout<<"Joe's turn: \n";
-				std::cout<<"Joe has "<<joe.score<<" points left.\n";
+				//std::cout<<"Joe's turn: \n";
+				//std::cout<<"Joe has "<<joe.score<<" points left.\n";
 				joe.Play();
-				std::cout<<"Joe aims for "<<joe.aiming<<", he hits "<<joe.score_hit<<"\n\n";
+				//std::cout<<"Joe aims for "<<joe.aiming<<", he hits "<<joe.score_hit<<"\n\n";
 				player_switch = 1;
 			}
 			if ((joe.score != 0) && (player_switch == 1))
 			{
 				//Sleep(550);
-				std::cout<<"Sid's turn: \n";
-				std::cout<<"Sid has "<<sid.score<<" points left.\n";
+				//std::cout<<"Sid's turn: \n";
+				//std::cout<<"Sid has "<<sid.score<<" points left.\n";
 				sid.Play();
-				std::cout<<"Sid aims for "<<sid.aiming<<", he hits "<<sid.score_hit<<"\n\n";
+				//std::cout<<"Sid aims for "<<sid.aiming<<", he hits "<<sid.score_hit<<"\n\n";
 				player_switch = 0;
 			}
 		}
 	
-		std::cout<<"\n\n";
+		//std::cout<<"\n\n";
 		if (sid.won == true)
 		{
-			std::cout<<"Sid won the game!!\n";
-			std::cout<<"\n";
+			//std::cout<<"Sid won the game!!\n";
+			//std::cout<<"\n";
 			sid.wins ++;
 		}
 		else
 		{
-			std::cout<<"Joe won the game!!\n";
-			std::cout<<"\n";
+			//std::cout<<"Joe won the game!!\n";
+			//std::cout<<"\n";
 			joe.wins++;
 		}
 
@@ -299,7 +299,7 @@ int main()
 	std::cout << "Throw count:\n\n";
 	for (int z = 0; z < 7; z++) 
 	{
-		std::cout <<"Number of throws needed " << throws[z] << "\n";
+		//std::cout <<"Number of throws needed " << throws[z] << "\n";
 	}
 
 	//Pause before exiting.
