@@ -1,75 +1,78 @@
-// ConsoleApplication16.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include <iostream>
-#include <algorithm>
 
 using std::cout;
-using std::endl;
-using std::swap;
 using std::cin;
+using std::endl;
 
+void quickSort(int arr[], int, int);
 
-void print(int *a, int n){
+int partition(int arr[], int, int);
 
-	int i = 0;
-	while (i < n){
-		cout << a[i] << ",";
-		i++;
+int main()
+{
+
+	int arr[100];
+	int p = 0, q, input123;
+
+	cout << "Please Enter THE NUMBER OF ELEMENTS you want to sort [THEN PRESS ENTER]:";
+	cin >> q;
+	cout << endl;
+	cout << "Now, Please Enter the ( " << q << " ) numbers (ELEMENTS) [THEN PRESS ENTER]:" << endl;
+
+	for (int i = 0; i<q; i++)
+		cin >> arr[i];
+
+	cout << "So, the sorted list (using Quicksort) will be " << endl;
+	cout << endl << endl;
+	quickSort(arr, p, q);
+
+	for (int i = 0; i < q; i++){
+		cout << arr[i] << " ";
 	}
-	cout << "\n";
-}
-
-int parition(int *arr, const int left, const int right){
-	const int mid = left + (right - left) / 2;
-	const int pivot = arr[mid];
-	swap(arr[mid], arr[left]);
-	int i = left + 1;
-	int j = right;
-
-	while (i <= j){
-		while (i <= j && arr[i] <= pivot){
-			i++;
-		}
-		while (i <= j && arr[j] > pivot) {
-			j--;
-		}
-
-		if (i < j) {
-			swap(arr[i], arr[j]);
-		}
-		swap(arr[i - 1], arr[left]);
-		return i - 1;
-	}
-}
-
-void quickSort(int *arr, const int left, const int right, const int sz){
-
-	if (left >= right){
-		return;
-	}
-
-	int part = parition(arr, left, right);
-	cout << "QSC:" << left << "," << right << " part=" << part << endl;
-	print(arr, sz);
-
-		quickSort(arr, left, part - 1, sz);
-		quickSort(arr, part + 1, right, sz);
-}
-
-int main(){
-	int input123;
-	int arr[13] = { 110, 5, 10, 3, 22, 100, 1, 23, 7, 3, 6, 7, 8 };
-	int sz = sizeof(arr) / sizeof(arr[0]);
-	print(arr, sz);
-	quickSort(arr, 0, sz - 1, sz);
-	print(arr, sz);
 
 	cin >> input123;
 	if (input123 = 5){
-		return 0;
+		cout << endl;
 	}
 
-	//return 0;
+	cout << endl;
+}
+
+
+void quickSort(int arr[], int p, int q)
+{
+	int r;
+
+	if (p<q)
+	{
+		r = partition(arr, p, q);
+		quickSort(arr, p, r);
+		quickSort(arr, r + 1, q);
+	}
+}
+
+
+
+int partition(int arr[], int p, int q)
+{
+	int x = arr[p];
+	int i = p;
+	int j;
+
+	for (j = p + 1; j<q; j++)
+	{
+		if (arr[j] <= x)
+		{
+			i = i + 1;
+			int temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+		}
+
+	}
+	int tempa = arr[i];
+	arr[i] = arr[p];
+	arr[p] = tempa;
+	return i;
 }
