@@ -46,4 +46,5 @@ int main() {
 	cout << (*ptr).foo << endl;
 }
 
-
+//when passing by value, the value given is changed due to a copy of the value being 
+//created in memory, if i tried printing it before joining the thread, output = 7
