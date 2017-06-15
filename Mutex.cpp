@@ -42,3 +42,9 @@ int main() {
 	std::cout << std::endl;
 
 }
+
+
+//When sharing a common resource in a thread, you must stop other threads from accessing said resource during computation 
+//In order to do this, we create a global mutex that we lock before accessing the common resource
+//This prevents all otehr threads from accessing it whilst they are running 
+//After we have altered the common resource, we unlock it allowing it to be used again by another thread
