@@ -12,8 +12,9 @@ using namespace std;
 
 int password = 500;
 int max_password_limit = 999;
-int current_password = 0;
+int found_password = 0;
 volatile bool password_reached = false;
+//bool found_password = false; 
 condition_variable password_cv;
 mutex password_m;
 
@@ -26,12 +27,12 @@ void myThreadFunc(int search_between, int i) {
 			password_m.lock();
 			password_cv.notify_all();
 			password_reached = true;
-			password = current_password;
+			password = found_password;
 			password_m.unlock();
 			return;
 		//}
 		password_m.lock();
-		current_password = current_password + 1;
+		found_password = found_password + 1;
 		password_m.unlock();
 
 	}
@@ -53,5 +54,5 @@ int main() {
 	for (int n = 0; n < 3; n++) {
 		myThreads[n].join();
 	}
-	cout << current_password << endl;
+	cout << found_password << endl;
 }
