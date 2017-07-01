@@ -14,7 +14,6 @@ int password = 500;
 int max_password_limit = 999;
 int found_password = 0;
 volatile bool password_reached = false;
-//bool found_password = false; 
 condition_variable password_cv;
 mutex password_m;
 
@@ -23,14 +22,14 @@ void myThreadFunc(int search_between, int i) {
 
 	for (int n = (search_between * i); n <= (search_between * (i + 1)); n++) {
 
-		//if (current_password == password) {
+		if (found_password == password) {
 			password_m.lock();
 			password_cv.notify_all();
 			password_reached = true;
 			password = found_password;
 			password_m.unlock();
 			return;
-		//}
+		}
 		password_m.lock();
 		found_password = n;
 		password_m.unlock();
