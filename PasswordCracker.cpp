@@ -12,28 +12,38 @@ using namespace std;
 
 int password = 500;
 int max_password_limit = 999;
+int current_password = 0;
 bool password_reached = false;
 condition_variable password_cv;
 mutex password_m;
 
-void myThreadFunc() {
-	for (int i = 0; i < 1000000; i++) {
-		//code goes here
+void myThreadFunc(int search_between, int i) {
+	
+	while (password_reached = false) {
 
+		//for (int n = (search_between * i); n <= (search_between * (i+1)); n++) {
+
+			if (current_password = password) {
+				password_reached = true;
+			}
+			password_m.lock();
+			current_password = current_password + 1;
+			password_m.unlock();
+
+		//}
 	}
 }
 
 int main() {
+	int search_between = max_password_limit / 3;	   //setting a number for threads to check between (0-332) (333-665) (666-999)
 
-	thread myThreads[3];
+	thread myThreads[3];		//setting number of threads
 
 	for (int i = 0; i < 3; i++) {
-		myThreads[i] = thread(myThreadFunc);
+		myThreads[i] = thread(myThreadFunc, search_between, i);
 	}
 
 	for (int n = 0; n < 3; n++) {
 		myThreads[n].join();
 	}
-
-
 }
