@@ -30,9 +30,7 @@ void myThreadFunc(int search_between, int i) {
 			password_m.unlock();
 			return;
 		}
-		password_m.lock();
 		found_password = n;
-		password_m.unlock();
 
 	}
 }
