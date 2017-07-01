@@ -19,19 +19,20 @@ mutex password_m;
 
 void myThreadFunc(int search_between, int i) {
 	
-	while (password_reached = false) {
+	//while (password_reached = false) {
 
-		//for (int n = (search_between * i); n <= (search_between * (i+1)); n++) {
+		for (int n = (search_between * i); n <= (search_between * (i+1)); n++) {
 
-			if (current_password = password) {
+			if (current_password == password) {
 				password_reached = true;
+				break;
 			}
 			password_m.lock();
 			current_password = current_password + 1;
 			password_m.unlock();
 
-		//}
-	}
+		}
+	//}
 }
 
 int main() {
@@ -46,4 +47,5 @@ int main() {
 	for (int n = 0; n < 3; n++) {
 		myThreads[n].join();
 	}
+	cout << current_password << endl;
 }
