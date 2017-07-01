@@ -22,6 +22,10 @@ void myThreadFunc(int search_between, int i) {
 
 	for (int n = (search_between * i); n <= (search_between * (i + 1)); n++) {
 
+		password_m.lock();
+		found_password = n;
+		password_m.unlock();
+
 		if (found_password == password) {
 			password_m.lock();
 			password_cv.notify_all();
@@ -30,7 +34,6 @@ void myThreadFunc(int search_between, int i) {
 			password_m.unlock();
 			return;
 		}
-		found_password = n;
 
 	}
 }
@@ -46,7 +49,7 @@ int main() {
 
 	unique_lock<mutex> lk(password_m);
 	password_cv.wait(lk, [] { return password_reached; });
-	cout << password_reached << endl;
+	//cout << password_reached << endl;
 
 	for (int n = 0; n < 3; n++) {
 		myThreads[n].join();
