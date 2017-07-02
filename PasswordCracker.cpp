@@ -25,7 +25,7 @@ void myThreadFunc(int search_between, int i) {
 
 		if (n == password) {
 			password_m.lock();
-			n = found_password;
+			found_password = n;
 			password_cv.notify_all();
 			password_reached = true;
 			password_m.unlock();
