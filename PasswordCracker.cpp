@@ -13,16 +13,14 @@ using namespace std;
 int password = 500;
 int max_password_limit = 999;
 int found_password;
-volatile bool password_reached = false;
+bool password_reached = false;
 condition_variable password_cv;
 mutex password_m;
 
 void myThreadFunc(int search_between, int i) {
 
 
-	for (int n = (search_between * i); n <= (search_between * (i + 1)); n++) {
-
-
+	for (int n = (search_between * i); !password_reached && n <= (search_between * (i + 1)); n++) {
 		if (n == password) {
 			password_m.lock();
 			found_password = n;
@@ -31,14 +29,13 @@ void myThreadFunc(int search_between, int i) {
 			password_m.unlock();
 			return;
 		}
-
 	}
 }
 
 int main() {
-	int search_between = max_password_limit / 3;	   //setting a number for threads to check between (0-332) (333-665) (666-999)
+	int search_between = max_password_limit / 3;
 
-	thread myThreads[3];		//setting number of threads
+	thread myThreads[3];
 
 	for (int i = 0; i < 3; i++) {
 		myThreads[i] = thread(myThreadFunc, search_between, i);
@@ -46,7 +43,6 @@ int main() {
 
 	unique_lock<mutex> lk(password_m);
 	password_cv.wait(lk, [] { return password_reached; });
-	//cout << password_reached << endl;
 
 	for (int n = 0; n < 3; n++) {
 		myThreads[n].join();
